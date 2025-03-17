@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Pixel Inspector</title>
+  <style>
+    video { max-width: 100%; }
+    #coords {
+      position: absolute;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" src="exampleSegment.mp4" controls></video>
+  <div id="coords">x: 0, y: 0</div>
+
+  <script>
+    const video = document.getElementById('video');
+    const coords = document.getElementById('coords');
+
+    video.addEventListener('mousemove', e => {
+      const rect = video.getBoundingClientRect();
+      const x = Math.floor(e.clientX - rect.left);
+      const y = Math.floor(e.clientY - rect.top);
+      coords.style.left = `${e.pageX + 10}px`;
+      coords.style.top = `${e.pageY + 10}px`;
+      coords.textContent = `x: ${x}, y: ${y}`;
+    });
+  </script>
+</body>
+</html>
